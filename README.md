@@ -13,7 +13,7 @@ Copy `gmod_sandbox/` into your BeamNG user folder's `mods/` directory:
 
     <userfolder>/mods/gmod_sandbox/
 
-or drop the zip (`gmod_sandbox_v1.0.0.zip`) into `<userfolder>/mods/`. The game scans the mods
+or drop the zip (`gmod_sandbox_v1.1.0.zip`) into `<userfolder>/mods/`. The game scans the mods
 folder on startup.
 
 ## Controls (on foot - press F to enter walking mode)
@@ -24,6 +24,7 @@ folder on startup.
 | Q              | open / close the spawn menu                         |
 | Left mouse     | physgun grab (hold) / drop or fling (release)       |
 | Right mouse    | explode whatever is in the crosshair                |
+| Mouse look     | while holding: rotate the held object (GMod feel)   |
 | Z / X          | pull the held object closer / push it farther       |
 | N              | cycle and spawn one of the game's own props         |
 | H              | cycle and spawn our sandbox props (melon/crate/...) |

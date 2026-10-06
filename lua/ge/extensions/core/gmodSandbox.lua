@@ -1,4 +1,4 @@
--- gmodSandbox.lua - GMod-style sandbox for BeamNG.drive (melty "gmod x beamng" mashup, v1.0)
+-- gmodSandbox.lua - GMod-style sandbox for BeamNG.drive (melty "gmod x beamng" mashup, v1.1)
 -- Namespace: extensions.core_gmodSandbox (loaded by scripts/gmod_sandbox/modScript.lua).
 -- One extension owns the physgun, the spawn menu and the spawn helpers, so the whole
 -- sandbox ships as a single mod. Extra tools live in gmodTools, NPC AI in gmodNpcs,
@@ -120,39 +120,91 @@ local function findTarget(range, minDot)
   return best, bestDist
 end
 
+-- Hold command, v1.1: the object is captured once (node ids + offsets from the
+-- node centroid); afterwards every node is sprung toward holdPoint + Rot(delta)*offset.
+-- The rotation delta is taken from the camera, so the held object's angles follow
+-- the mouse (the GMod physgun feel from the reference video). Objects with many
+-- nodes (cars) fall back to translation-only so the per-frame command stays small.
 local HOLD_CMD = [[
 if obj and v and v.data and v.data.nodes then
-  local hp = vec3(%f, %f, %f)
-  local n = 0
-  for _, nd in pairs(v.data.nodes) do n = n + 1 end
-  if n > 0 then
-    if not _gmodSandboxMass then
-      local m = 0
-      for _, nd in pairs(v.data.nodes) do
-        local okm, mm = pcall(obj.getNodeMass, obj, nd.cid)
-        if okm and mm then m = m + mm end
-      end
-      if m < 1 then m = 500 end
-      _gmodSandboxMass = m
-    end
-    local per = 1.0 / n
-    local k = %f * _gmodSandboxMass * per
-    local d = %f * _gmodSandboxMass * per
-    local cap = %f * _gmodSandboxMass * per
+  if not _gmodSandboxInit then
+    _gmodSandboxInit = true
+    _gmodSandboxIds, _gmodSandboxOffs = {}, {}
+    local n, cx, cy, cz, m = 0, 0, 0, 0, 0
     for _, nd in pairs(v.data.nodes) do
-      local p = obj:getNodePosition(nd.cid)
-      local vel = obj:getNodeVelocityVector(nd.cid)
-      local force = (hp - p) * k - vel * d
-      local m = force:length()
-      if m > cap then force = force:normalized() * cap end
-      obj:applyForceVector(nd.cid, force)
+      local okp, p = pcall(obj.getNodePosition, obj, nd.cid)
+      local okm, mm = pcall(obj.getNodeMass, obj, nd.cid)
+      if okp and p then
+        _gmodSandboxIds[#_gmodSandboxIds + 1] = nd.cid
+        _gmodSandboxOffs[#_gmodSandboxOffs + 1] = p.x
+        _gmodSandboxOffs[#_gmodSandboxOffs + 1] = p.y
+        _gmodSandboxOffs[#_gmodSandboxOffs + 1] = p.z
+        cx = cx + p.x; cy = cy + p.y; cz = cz + p.z; n = n + 1
+      end
+      if okm and mm then m = m + mm end
+    end
+    if n < 1 then return end
+    _gmodSandboxN = n
+    _gmodSandboxMass = (m > 1) and m or 500
+    _gmodSandboxRot = (n <= 32)
+    for i = 1, n do
+      _gmodSandboxOffs[3 * i - 2] = _gmodSandboxOffs[3 * i - 2] - cx / n
+      _gmodSandboxOffs[3 * i - 1] = _gmodSandboxOffs[3 * i - 1] - cy / n
+      _gmodSandboxOffs[3 * i]     = _gmodSandboxOffs[3 * i]     - cz / n
+    end
+  end
+  local n = _gmodSandboxN or 0
+  if n > 0 then
+    local hp = vec3(%f, %f, %f)
+    local k = %f * _gmodSandboxMass / n
+    local d = %f * _gmodSandboxMass / n
+    local cap = %f * _gmodSandboxMass / n
+    local qx, qy, qz, qw = %f, %f, %f, %f
+    for i = 1, n do
+      local cid = _gmodSandboxIds[i]
+      local ox = _gmodSandboxOffs[3 * i - 2]
+      local oy = _gmodSandboxOffs[3 * i - 1]
+      local oz = _gmodSandboxOffs[3 * i]
+      if _gmodSandboxRot then
+        local tx = 2 * (qy * oz - qz * oy + qw * ox)
+        local ty = 2 * (qz * ox - qx * oz + qw * oy)
+        local tz = 2 * (qx * oy - qy * ox + qw * oz)
+        local rx = ox + qw * tx + (qy * tz - qz * ty)
+        local ry = oy + qw * ty + (qz * tx - qx * tz)
+        local rz = oz + qw * tz + (qx * ty - qy * tx)
+        ox, oy, oz = rx, ry, rz
+      end
+      local p = obj:getNodePosition(cid)
+      local vel = obj:getNodeVelocityVector(cid)
+      local force = vec3(hp.x + ox - p.x, hp.y + oy - p.y, hp.z + oz - p.z) * k - vel * d
+      local mm = force:length()
+      if mm > cap then force = force:normalized() * cap end
+      obj:applyForceVector(cid, force)
     end
   end
 end
 ]]
 
+local GRAB_CAM_QUAT = nil
+
+local function camQuat()
+  local ok, q = pcall(core_camera.getQuat)
+  if ok and q then return q end
+  return quat(0, 0, 0, 1)
+end
+
+local function conj(q)
+  return quat(-q.x, -q.y, -q.z, q.w)
+end
+
+local VM_RESET = "_gmodSandboxInit=nil; _gmodSandboxMass=nil; _gmodSandboxIds=nil; " ..
+                 "_gmodSandboxOffs=nil; _gmodSandboxN=nil; _gmodSandboxRot=nil"
+
 local function sendHold(o, hp)
-  o:queueLuaCommand(string.format(HOLD_CMD, hp.x, hp.y, hp.z, K_PER_KG, D_PER_KG, CAP_PER_KG))
+  local q = camQuat()
+  local dq = q * conj(GRAB_CAM_QUAT or q)
+  o:queueLuaCommand(string.format(HOLD_CMD, hp.x, hp.y, hp.z, K_PER_KG, D_PER_KG, CAP_PER_KG,
+                                  dq.x, dq.y, dq.z, dq.w))
 end
 
 -- Spawn a model in front of the view. config may be nil (vehicles pick a default).
@@ -185,12 +237,16 @@ function M.grab()
     return
   end
   grabbedId = t:getID()
+  GRAB_CAM_QUAT = camQuat()
+  pcall(function() t:queueLuaCommand(VM_RESET) end)
   dlog("grabbed " .. tostring(t:getJBeamFilename()) .. " id=" .. tostring(grabbedId))
   toast("success", "Grabbed " .. tostring(t:getJBeamFilename()))
 end
 
 function M.release()
   if not grabbedId then return end
+  local o = be:getObjectByID(grabbedId)
+  if o then pcall(function() o:queueLuaCommand(VM_RESET) end) end
   dlog("released id=" .. tostring(grabbedId))
   grabbedId = nil
   toast("success", "Released")
@@ -294,7 +350,7 @@ local function drawMenu()
   im.SameLine()
   if im.Button("Noclip (J)") then M.toggleNoclip() end
   im.Separator()
-  im.Text("Q close | LMB grab | RMB boom | N prop | H sandbox | M car | Z/X dist")
+  im.Text("Q close | LMB grab | RMB boom | look rotates held | N prop | H sandbox | M car | Z/X dist")
   im.End()
 end
 
@@ -312,5 +368,5 @@ function M.onUpdate(dt)
 end
 
 M.logTag = logTag
-dlog("extension loaded (v1.0)")
+dlog("extension loaded (v1.1)")
 return M

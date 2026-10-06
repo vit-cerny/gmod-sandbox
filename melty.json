@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed",
+  "games": [{ "slug": "beamng-drive", "role": "primary" }],
+  "components": [
+    { "id": "main", "fileName": "gmod_sandbox_v*.zip", "label": "GMod Sandbox", "kind": "main", "required": true }
+  ],
+  "requirements": [],
+  "mappings": [
+    { "component": "main", "from": "", "to": "{managed}/beamng-user/current/mods/unpacked/gmod_sandbox" }
+  ],
+  "launch": {
+    "kind": "exe",
+    "path": "{game}/Bin64/BeamNG.drive.x64.exe",
+    "args": ["-userpath", "{managed}/beamng-user"],
+    "cwd": "{game}"
+  }
+}

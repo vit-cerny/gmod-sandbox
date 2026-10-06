@@ -1,0 +1,11 @@
+{
+  "bindings":[
+    {"action":"gmod_sandbox_grab","control":"button0"},
+    {"action":"gmod_sandbox_shoot","control":"button1"}
+  ],
+  "devicetype":"mouse",
+  "guid":"{6F1D2B60-D5A0-11CF-BFC7-444553540000}",
+  "name":"Mouse",
+  "version":1,
+  "vidpid":"6F1D2B60"
+}

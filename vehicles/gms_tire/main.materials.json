@@ -1,0 +1,20 @@
+{
+  "tirerubber": {
+    "name": "tirerubber",
+    "mapTo": "tirerubber",
+    "class": "Material",
+    "Stages": [
+      {
+        "baseColorMap": "/vehicles/gms_tire/tirerubber.main.png"
+      },
+      {},
+      {},
+      {}
+    ],
+    "dynamicCubemap": true,
+    "invertBackFaceNormals": true,
+    "materialTag0": "beamng",
+    "materialTag1": "object",
+    "version": 1.5
+  }
+}

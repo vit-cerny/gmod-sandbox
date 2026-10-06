@@ -1,0 +1,20 @@
+{
+  "barrelmetal": {
+    "name": "barrelmetal",
+    "mapTo": "barrelmetal",
+    "class": "Material",
+    "Stages": [
+      {
+        "baseColorMap": "/vehicles/gms_barrel/barrelmetal.main.png"
+      },
+      {},
+      {},
+      {}
+    ],
+    "dynamicCubemap": true,
+    "invertBackFaceNormals": true,
+    "materialTag0": "beamng",
+    "materialTag1": "object",
+    "version": 1.5
+  }
+}

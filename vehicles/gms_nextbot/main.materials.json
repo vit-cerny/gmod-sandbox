@@ -1,0 +1,20 @@
+{
+  "nextbotface": {
+    "name": "nextbotface",
+    "mapTo": "nextbotface",
+    "class": "Material",
+    "Stages": [
+      {
+        "baseColorMap": "/vehicles/gms_nextbot/nextbotface.main.png"
+      },
+      {},
+      {},
+      {}
+    ],
+    "dynamicCubemap": true,
+    "invertBackFaceNormals": true,
+    "materialTag0": "beamng",
+    "materialTag1": "object",
+    "version": 1.5
+  }
+}

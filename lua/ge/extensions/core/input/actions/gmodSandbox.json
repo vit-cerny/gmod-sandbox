@@ -1,0 +1,14 @@
+{
+	"gmod_sandbox_grab":     {"cat":"vehicle", "order": 50, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.grab()", "onUp":"extensions.core_gmodSandbox.release()", "title": "GMod Sandbox: Grab / Drop", "desc": "Hold to grab a prop or car, release to drop or fling it"},
+	"gmod_sandbox_shoot":    {"cat":"vehicle", "order": 51, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.shoot()", "title": "GMod Sandbox: Explode", "desc": "Explodes whatever is in your crosshair"},
+	"gmod_sandbox_gameprop": {"cat":"vehicle", "order": 52, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.spawnGameProp()", "title": "GMod Spawn: Game Prop (cycle)", "desc": "Cycles the game's own props (crate, barrel, piano...)"},
+	"gmod_sandbox_gmsprop":  {"cat":"vehicle", "order": 53, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.spawnGmsProp()", "title": "GMod Spawn: Sandbox Prop (cycle)", "desc": "Cycles our generated props (melon, crate, barrel, tire)"},
+	"gmod_sandbox_vehicle":  {"cat":"vehicle", "order": 54, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.spawnVehicle()", "title": "GMod Spawn: Vehicle (cycle)", "desc": "Cycles vehicles and spawns one in front of you"},
+	"gmod_sandbox_menu":     {"cat":"vehicle", "order": 55, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.toggleMenu()", "title": "GMod Spawn Menu", "desc": "Opens the spawn menu (props, NPCs, vehicles, tools)"},
+	"gmod_sandbox_closer":   {"cat":"vehicle", "order": 56, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.distance(-0.5)", "title": "GMod Physgun: Pull Closer", "desc": "Brings the held object 0.5 m closer"},
+	"gmod_sandbox_farther":  {"cat":"vehicle", "order": 57, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.distance(0.5)", "title": "GMod Physgun: Push Farther", "desc": "Pushes the held object 0.5 m farther"},
+	"gmod_punt_fire":        {"cat":"vehicle", "order": 58, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.punt()", "title": "GMod Tool: Physcannon Punt", "desc": "Shoves whatever is in your crosshair (cars fly, props fly)"},
+	"gmod_nextbot_spawn":    {"cat":"vehicle", "order": 59, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.spawnNextbot()", "title": "GMod Spawn: Nextbot", "desc": "Spawns a nextbot in front of you; it hunts you"},
+	"gmod_npc_toggle":       {"cat":"vehicle", "order": 60, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.toggleNpcs()", "title": "GMod NPCs: Chase Toggle", "desc": "Turns the NPC chase behavior on or off"},
+	"gmod_noclip_toggle":    {"cat":"vehicle", "order": 61, "ctx":"tlua", "onDown":"extensions.core_gmodSandbox.toggleNoclip()", "title": "GMod Movement: Noclip", "desc": "Toggles free flight (GMod noclip) while on foot"}
+}

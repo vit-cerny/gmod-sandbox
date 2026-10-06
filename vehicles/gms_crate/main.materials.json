@@ -1,0 +1,20 @@
+{
+  "cratewood": {
+    "name": "cratewood",
+    "mapTo": "cratewood",
+    "class": "Material",
+    "Stages": [
+      {
+        "baseColorMap": "/vehicles/gms_crate/cratewood.main.png"
+      },
+      {},
+      {},
+      {}
+    ],
+    "dynamicCubemap": true,
+    "invertBackFaceNormals": true,
+    "materialTag0": "beamng",
+    "materialTag1": "object",
+    "version": 1.5
+  }
+}

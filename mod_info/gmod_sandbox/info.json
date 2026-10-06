@@ -1,0 +1,8 @@
+{
+  "name": "GMod Sandbox",
+  "author": "melty x universal-modder",
+  "version": "1.0.0",
+  "description": "Half-Life/GMod style sandbox for BeamNG.drive: physgun grab/throw, explode, spawn menu (props/NPCs/vehicles), nextbot chase, punt, noclip and a HUD.",
+  "tagid": "gmod_sandbox",
+  "message": ""
+}

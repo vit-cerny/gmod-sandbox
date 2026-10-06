@@ -1,0 +1,7 @@
+{
+  "format": 2,
+  "model": "gms_melon",
+  "parts": {
+    "gms_melon": "gms_melon_a"
+  }
+}

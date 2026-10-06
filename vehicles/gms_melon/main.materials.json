@@ -1,0 +1,20 @@
+{
+  "melonskin": {
+    "name": "melonskin",
+    "mapTo": "melonskin",
+    "class": "Material",
+    "Stages": [
+      {
+        "baseColorMap": "/vehicles/gms_melon/melonskin.main.png"
+      },
+      {},
+      {},
+      {}
+    ],
+    "dynamicCubemap": true,
+    "invertBackFaceNormals": true,
+    "materialTag0": "beamng",
+    "materialTag1": "object",
+    "version": 1.5
+  }
+}

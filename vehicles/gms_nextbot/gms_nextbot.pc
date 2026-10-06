@@ -1,0 +1,7 @@
+{
+  "format": 2,
+  "model": "gms_nextbot",
+  "parts": {
+    "gms_nextbot": "gms_nextbot_a"
+  }
+}

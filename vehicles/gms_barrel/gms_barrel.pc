@@ -1,0 +1,7 @@
+{
+  "format": 2,
+  "model": "gms_barrel",
+  "parts": {
+    "gms_barrel": "gms_barrel_a"
+  }
+}

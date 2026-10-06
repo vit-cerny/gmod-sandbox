@@ -1,0 +1,14 @@
+{
+  "bindings":[
+    {"control":"alt q", "action":"gmod_sandbox_menu"},
+    {"control":"alt g", "action":"gmod_sandbox_grab"},
+    {"control":"alt v", "action":"gmod_sandbox_shoot"},
+    {"control":"alt n", "action":"gmod_sandbox_gameprop"},
+    {"control":"alt h", "action":"gmod_sandbox_gmsprop"},
+    {"control":"alt m", "action":"gmod_sandbox_vehicle"},
+    {"control":"alt r", "action":"gmod_punt_fire"},
+    {"control":"alt k", "action":"gmod_nextbot_spawn"},
+    {"control":"alt b", "action":"gmod_npc_toggle"},
+    {"control":"alt j", "action":"gmod_noclip_toggle"}
+  ]
+}

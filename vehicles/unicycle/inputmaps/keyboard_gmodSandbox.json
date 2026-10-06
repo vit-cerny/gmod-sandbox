@@ -1,0 +1,21 @@
+{
+  "bindings":[
+    {"action":"gmod_sandbox_grab","control":"g"},
+    {"action":"gmod_sandbox_shoot","control":"v"},
+    {"action":"gmod_sandbox_gameprop","control":"n"},
+    {"action":"gmod_sandbox_gmsprop","control":"h"},
+    {"action":"gmod_sandbox_vehicle","control":"m"},
+    {"action":"gmod_sandbox_menu","control":"q"},
+    {"action":"gmod_sandbox_closer","control":"z"},
+    {"action":"gmod_sandbox_farther","control":"x"},
+    {"action":"gmod_punt_fire","control":"r"},
+    {"action":"gmod_nextbot_spawn","control":"k"},
+    {"action":"gmod_npc_toggle","control":"b"},
+    {"action":"gmod_noclip_toggle","control":"j"}
+  ],
+  "devicetype":"keyboard",
+  "guid":"{6F1D2B61-D5A0-11CF-BFC7-444553540000}",
+  "name":"Keyboard",
+  "version":1,
+  "vidpid":"6F1D2B61"
+}

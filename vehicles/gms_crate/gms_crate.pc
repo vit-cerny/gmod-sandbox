@@ -1,0 +1,7 @@
+{
+  "format": 2,
+  "model": "gms_crate",
+  "parts": {
+    "gms_crate": "gms_crate_a"
+  }
+}

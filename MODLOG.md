@@ -26,6 +26,11 @@ Verified live through BeamNG's own in-game MCP server (run_lua / trigger_action 
 walk, grab (mass-scaled), release, explode, spawn menu, punt, nextbot, NPC chase tracking,
 sandbox + game prop spawns, noclip. Static: luaparse 5.1 OK, `um publish check` PASS.
 
+Independently re-verified by a separate computer-use agent that played the mod for a long session
+(beamng.log uptime 2119-2199 s): `grabbed bolide` / `released` on a full car, `grabbed gms_melon`
+(mass 2.475), two nextbots with `tracking 3 NPC(s)` then `tracking 4 NPC(s)`, `npc behavior ON/OFF`,
+`spawned gms_melon` / `gms_tire` / `barstow`. No Lua errors from the mod.
+
 ## Gotchas
 - cameraMouseRayCast can return static scene geometry; calling getJBeamFilename on it throws.
   Only accept objects that expose getJBeamFilename.
